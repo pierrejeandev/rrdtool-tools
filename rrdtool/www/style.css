@@ -1,0 +1,102 @@
+*
+{
+   font-family:Verdana, sans serif;
+/*  color:darkred; */
+   vertical-align:middle;
+   background-color: #4C565E;
+   color:#B7BFC7;
+}
+
+a
+{
+   background-color:transparent;
+   text-decoration:none;
+}
+a:link    { color:#FF6600; }
+a:visited { color:#FF6600;  /* #D65600; */ }
+a:hover   { color:#FFBA01;  /* #EB5252; */  }
+a:active  { color:#FF6600;  /* #B7BFC7; */ }
+
+input, option, textarea
+{
+   background-color:#FFFFFF;  /*#757B81;*/
+   color: #000000; /* #F6B33D;*/
+}
+input.radio
+{
+   background-color:transparent;
+}
+input.button
+{
+
+}
+form
+{
+   margin:0px;
+   padding:0px;
+   border:0px;
+}
+table
+{
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+h3
+{
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+*.help
+{
+   color:darkgreen;
+   font-size:smaller;
+}
+*.warning
+{
+   color:darkred;
+}
+*.error
+{  
+   font-size:smaller;
+   color:#ff0000;
+}
+
+tr.over
+{
+   background-color:LightCyan;
+}
+tr.out
+{
+   background-color:white;
+}
+td 
+{
+   border-bottom: 1px solid black; 
+   vertical-align: top; 
+   font-size:smaller;
+   font-weight:normal;
+   padding:2px 4px 2px 4px;
+}
+td.titre
+{
+   font-weight:bold;
+   background-color: #757B81; /*#BCD3E2*/
+   color: #F6B33D;
+}
+/*td.radio
+{
+   text-align:right;
+}*/
+td.marge
+{
+   border-right:1px solid black;
+}
+*.hidden
+{
+   color:gray;
+}
+*.centered
+{
+   text-align:center;
+   margin-top:10px;
+}
