@@ -88,7 +88,7 @@ $scripttime = 60 * int( ($scripttime + 5) / 60); # arrondi à la minute
 
 my $stoptime = $scripttime;
 my $imgBaseName = "uptime";
-my $imgname = $imgBaseName.'-2day.png';
+my $imgname = $imgBaseName.'-2-2day.png';
 my $starttime = $stoptime - ($width - 1) * 300; # 1px / 5 min ; 480x5 min = 40h
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;
@@ -101,7 +101,7 @@ if (($min % 30)!=0 && $notDrawAll) # 30 min
   exit;
 }
 
-$imgname = $imgBaseName.'-week.png';
+$imgname = $imgBaseName.'-3-week.png';
 $starttime = $stoptime - ($width - 1) * 1800; # 1px / 30 min ; 480x30 min = 240h = 10 jours
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;
@@ -114,7 +114,7 @@ if ( (($hour % 2)!=0 || $min!=0) && $notDrawAll ) # 2 heures
   exit;
 }
 
-$imgname = $imgBaseName.'-month.png';
+$imgname = $imgBaseName.'-4-month.png';
 $starttime = $stoptime - ($width - 1) * 7200; # 1px / 2h ; 480x2h = 40 jours
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;
@@ -127,7 +127,7 @@ if ($hour!=0 && $notDrawAll) # 1 jour
   exit;
 }
 
-$imgname = $imgBaseName.'-year.png';
+$imgname = $imgBaseName.'-5-year.png';
 $starttime = $stoptime - ($width - 1) * 86400; # 1px / 1 jour ; 480 jours = 1.3 ans
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;

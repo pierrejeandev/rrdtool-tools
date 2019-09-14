@@ -76,7 +76,7 @@ $scripttime = 60 * int( ($scripttime + 5) / 60); # arrondi à la minute
 
 my $stoptime = $scripttime;
 my $starttime = $stoptime - ($width - 1) * 60; # 1px / 1 min ; 480 min = 8h
-my $imgname = 'cpu-hday.png';
+my $imgname = 'cpu-1-hday.png';
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;
 $cmdp =~ s/stoptime/$stoptime/;
@@ -89,7 +89,7 @@ if (($min % 5)!=0) # 5 min
   exit;
 }
   
-$imgname = 'cpu-2day.png';
+$imgname = 'cpu-2-2day.png';
 $starttime = $stoptime - ($width - 1) * 300; # 1px / 5 min ; 480x5 min = 40h
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;
@@ -103,7 +103,7 @@ if (($min % 30)!=0) # 30 min
   exit;
 }
 
-$imgname = 'cpu-week.png';
+$imgname = 'cpu-3-week.png';
 $starttime = $stoptime - ($width - 1) * 1800; # 1px / 30 min ; 480x30 min = 240h = 10 jours
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;
@@ -116,7 +116,7 @@ if (($hour % 2)!=0 || $min!=0) # 2 heures
   exit;
 }
 
-$imgname = 'cpu-month.png';
+$imgname = 'cpu-4-month.png';
 $starttime = $stoptime - ($width - 1) * 7200; # 1px / 2h ; 480x2h = 40 jours
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;
@@ -129,7 +129,7 @@ if ($hour!=0) # 1 jour
   exit;
 }
 
-$imgname = 'cpu-year.png';
+$imgname = 'cpu-5-year.png';
 $starttime = $stoptime - ($width - 1) * 86400; # 1px / 1 jour ; 480 jours = 1.3 ans
 $cmdp = $cmd;
 $cmdp =~ s/starttime/$starttime/;

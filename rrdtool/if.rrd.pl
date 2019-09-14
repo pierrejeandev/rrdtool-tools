@@ -88,7 +88,7 @@ foreach my $dev (keys(%$devs))
 # fonction de traitement d'une interface
 sub updateRrdForDevice
 {
-  # device (interface) à traiter. Par ex lo, eth0, tap0
+# le device (interface) à traiter. Par ex lo, eth0, tap0
   my ($dev) = @_;
 
   print "Updating $dev\n";
@@ -105,11 +105,11 @@ sub updateRrdForDevice
 
   # mise à jour de la base RRD
   my $cmd = "rrdtool update $datadir/$rrdFile $scripttimereal:" . $devs->{$dev}->{ReceiveByte} . ':' . $devs->{$dev}->{TransmitByte} . "\n";
-  #  print "$cmd";  # DEBUG
+#  print "$cmd";  # DEBUG
   print `$cmd`;
 
   
-  # Graphique 
+ # Graphique 
   $cmd = "rrdtool graph $webdir/imgname -a PNG --start starttime --end stoptime -w $width -h $height --logarithmic --units=si ";
   $cmd .= "DEF:RecAvg=$datadir/$rrdFile:Receive:AVERAGE DEF:TraAvg=$datadir/$rrdFile:Transmit:AVERAGE ";
   $cmd .= "DEF:RecMax=$datadir/$rrdFile:Receive:MAX DEF:TraMax=$datadir/$rrdFile:Transmit:MAX ";
@@ -128,7 +128,7 @@ sub updateRrdForDevice
 
   my $stoptime = $scripttime;
   my $starttime = $stoptime - ($width - 1) * 60; # 1px / 1 min ; 480 min = 8h
-  my $imgname = "if-$dev-hday.png";
+  my $imgname = "if-$dev-1-hday.png";
   $cmdp = $cmd;
   $cmdp =~ s/starttime/$starttime/;
   $cmdp =~ s/stoptime/$stoptime/;
@@ -141,7 +141,7 @@ sub updateRrdForDevice
     return;
   }
 
-  $imgname = "if-$dev-2day.png";
+  $imgname = "if-$dev-2-2day.png";
   $starttime = $stoptime - ($width - 1) * 300; # 1px / 5 min ; 480x5 min = 40h
   $cmdp = $cmd;
   $cmdp =~ s/starttime/$starttime/;
@@ -154,7 +154,7 @@ sub updateRrdForDevice
     return;
   }
 
-  $imgname = "if-$dev-week.png";
+  $imgname = "if-$dev-3-week.png";
   $starttime = $stoptime - ($width - 1) * 1800; # 1px / 30 min ; 480x30 min = 240h = 10 jours
   $cmdp = $cmd;
   $cmdp =~ s/starttime/$starttime/;
@@ -167,7 +167,7 @@ sub updateRrdForDevice
     return;
   }
 
-  $imgname = "if-$dev-month.png";
+  $imgname = "if-$dev-4-month.png";
   $starttime = $stoptime - ($width - 1) * 7200; # 1px / 2h ; 480x2h = 40 jours
   $cmdp = $cmd;
   $cmdp =~ s/starttime/$starttime/;
@@ -180,7 +180,7 @@ sub updateRrdForDevice
     return;
   }
 
-  $imgname = "if-$dev-year.png";
+  $imgname = "if-$dev-5-year.png";
   $starttime = $stoptime - ($width - 1) * 86400; # 1px / 1 jour ; 480 jours = 1.3 ans
   $cmdp = $cmd;
   $cmdp =~ s/starttime/$starttime/;

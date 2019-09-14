@@ -24,6 +24,7 @@ echo "## $(date) #############################" >>  ./rrd.log 2>&1
 ./cpu.rrd.pl         >> ./rrd.log 2>&1
 ./mem.rrd.pl         >> ./rrd.log 2>&1
 ./diskSpace.rrd.pl   >> ./rrd.log 2>&1
+./diskIO.rrd.pl      >> ./rrd.log 2>&1
 ./uptime.rrd.pl      >> ./rrd.log 2>&1
 ./if.rrd.pl          >> ./rrd.log 2>&1
 #./sensors.rrd.pl     >> ./rrd.log 2>&1
