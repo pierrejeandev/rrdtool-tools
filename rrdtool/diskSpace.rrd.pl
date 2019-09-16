@@ -95,11 +95,11 @@ sub drawGraph
 
   $cmd .= "COMMENT:\"Mount point\\: $nameDisk\\n\" ";
   $cmd .= "COMMENT:\"             Avg            Min            Max            Last\\n\" ";
-  $cmd .= "GPRINT:KoUsed:AVERAGE:\"        %8.2lf %so\" GPRINT:KoUsed:MIN:\"  %8.2lf %So\" ";
-  $cmd .= "GPRINT:KoUsed:MAX:\"  %8.2lf %So\" GPRINT:KoUsed:LAST:\"  %8.2lf %So     \" ";
+  $cmd .= "GPRINT:KoUsed:AVERAGE:\"        %8.2lf %sB\" GPRINT:KoUsed:MIN:\"  %8.2lf %SB\" ";
+  $cmd .= "GPRINT:KoUsed:MAX:\"  %8.2lf %SB\" GPRINT:KoUsed:LAST:\"  %8.2lf %SB     \" ";
   $cmd .= "AREA:KoUsed#C00000:\"KoUsed\" COMMENT:\"\\n\" ";
-  $cmd .= "GPRINT:KoFree:AVERAGE:\"        %8.2lf %so\" GPRINT:KoFree:MIN:\"  %8.2lf %So\" ";
-  $cmd .= "GPRINT:KoFree:MAX:\"  %8.2lf %So\" GPRINT:KoFree:LAST:\"  %8.2lf %So     \" ";
+  $cmd .= "GPRINT:KoFree:AVERAGE:\"        %8.2lf %sB\" GPRINT:KoFree:MIN:\"  %8.2lf %SB\" ";
+  $cmd .= "GPRINT:KoFree:MAX:\"  %8.2lf %SB\" GPRINT:KoFree:LAST:\"  %8.2lf %SB     \" ";
   $cmd .= "STACK:KoFree#0173FF:\"KoFree\" COMMENT:\"\\n\" ";
   $cmd .= "COMMENT:\"          ----------------------------   $timestamp   -----------------------\\n\" ";
 

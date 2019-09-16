@@ -172,6 +172,13 @@ sub drawGraph
   $cmdp =~ s/imgname/$imgname/;
   print `$cmdp`;
 
+  $imgname = $imgBaseName2 . '-3-week.png';
+  $cmdp = $cmd2;
+  $cmdp =~ s/starttime/$starttime/;
+  $cmdp =~ s/stoptime/$stoptime/;
+  $cmdp =~ s/imgname/$imgname/;
+  print `$cmdp`;
+
   if ( (($hour % 2)!=0 || $min!=0) && $notDrawAll ) # 2 heures
   {
     return;
@@ -185,6 +192,13 @@ sub drawGraph
   $cmdp =~ s/imgname/$imgname/;
   print `$cmdp`;
 
+  $imgname = $imgBaseName2 . '-4-month.png';
+  $cmdp = $cmd2;
+  $cmdp =~ s/starttime/$starttime/;
+  $cmdp =~ s/stoptime/$stoptime/;
+  $cmdp =~ s/imgname/$imgname/;
+  print `$cmdp`;
+
   if ($hour!=0 && $notDrawAll) # 1 jour
   {
     return;
@@ -193,6 +207,13 @@ sub drawGraph
   $imgname = $imgBaseName . '-5-year.png';
   $starttime = $stoptime - ($width - 1) * 86400; # 1px / 1 jour ; 480 jours = 1.3 ans
     $cmdp = $cmd;
+  $cmdp =~ s/starttime/$starttime/;
+  $cmdp =~ s/stoptime/$stoptime/;
+  $cmdp =~ s/imgname/$imgname/;
+  print `$cmdp`;
+
+  $imgname = $imgBaseName2 . '-5-year.png';
+  $cmdp = $cmd2;
   $cmdp =~ s/starttime/$starttime/;
   $cmdp =~ s/stoptime/$stoptime/;
   $cmdp =~ s/imgname/$imgname/;
