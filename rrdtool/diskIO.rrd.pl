@@ -69,8 +69,6 @@ print $cmd."\n";
 print `$cmd`;
 
 
-exit if($notDrawAll eq 1);
-
 #my $width = 480;
 my $width = 700;
 my $height = 200;
@@ -92,11 +90,11 @@ sub drawGraph
 
   $cmd .= "COMMENT:\"Mount point\\: $nameDisk\\n\" ";
   $cmd .= "COMMENT:\"             Avg            Min            Max            Last\\n\" ";
-  $cmd .= "GPRINT:Reads:AVERAGE:\"        %8.2lf %so\" GPRINT:Reads:MIN:\"  %8.2lf %So\" ";
-  $cmd .= "GPRINT:Reads:MAX:\"  %8.2lf %So\" GPRINT:Reads:LAST:\"  %8.2lf %So     \" ";
+  $cmd .= "GPRINT:Reads:AVERAGE:\"        %8.2lf %sIO/s\" GPRINT:Reads:MIN:\"  %8.2lf %SIO/s\" ";
+  $cmd .= "GPRINT:Reads:MAX:\"  %8.2lf %SIO/s\" GPRINT:Reads:LAST:\"  %8.2lf %SIO/s     \" ";
   $cmd .= "LINE:Reads#C00000:\"Reads\" COMMENT:\"\\n\" ";
-  $cmd .= "GPRINT:Writes:AVERAGE:\"        %8.2lf %so\" GPRINT:Writes:MIN:\"  %8.2lf %So\" ";
-  $cmd .= "GPRINT:Writes:MAX:\"  %8.2lf %So\" GPRINT:Writes:LAST:\"  %8.2lf %So     \" ";
+  $cmd .= "GPRINT:Writes:AVERAGE:\"        %8.2lf %sIO/s\" GPRINT:Writes:MIN:\"  %8.2lf %SIO/s\" ";
+  $cmd .= "GPRINT:Writes:MAX:\"  %8.2lf %SIO/s\" GPRINT:Writes:LAST:\"  %8.2lf %SIO/s     \" ";
   $cmd .= "LINE:Writes#0173FF:\"Writes\" COMMENT:\"\\n\" ";
   $cmd .= "COMMENT:\"          ----------------------------   $timestamp   -----------------------\\n\" ";
 
@@ -106,11 +104,11 @@ sub drawGraph
 
   $cmd2 .= "COMMENT:\"Mount point\\: $nameDisk\\n\" ";
   $cmd2 .= "COMMENT:\"             Avg            Min            Max            Last\\n\" ";
-  $cmd2 .= "GPRINT:ReadBytes:AVERAGE:\"        %8.2lf %so\" GPRINT:ReadBytes:MIN:\"  %8.2lf %So\" ";
-  $cmd2 .= "GPRINT:ReadBytes:MAX:\"  %8.2lf %So\" GPRINT:ReadBytes:LAST:\"  %8.2lf %So     \" ";
+  $cmd2 .= "GPRINT:ReadBytes:AVERAGE:\"        %8.2lf %sB/s\" GPRINT:ReadBytes:MIN:\"  %8.2lf %SB/s\" ";
+  $cmd2 .= "GPRINT:ReadBytes:MAX:\"  %8.2lf %SB/s\" GPRINT:ReadBytes:LAST:\"  %8.2lf %SB/s     \" ";
   $cmd2 .= "LINE:ReadBytes#C00000:\"ReadBytes\" COMMENT:\"\\n\" ";
-  $cmd2 .= "GPRINT:WriteBytes:AVERAGE:\"        %8.2lf %so\" GPRINT:WriteBytes:MIN:\"  %8.2lf %So\" ";
-  $cmd2 .= "GPRINT:WriteBytes:MAX:\"  %8.2lf %So\" GPRINT:WriteBytes:LAST:\"  %8.2lf %So     \" ";
+  $cmd2 .= "GPRINT:WriteBytes:AVERAGE:\"        %8.2lf %sB/s\" GPRINT:WriteBytes:MIN:\"  %8.2lf %SB/s\" ";
+  $cmd2 .= "GPRINT:WriteBytes:MAX:\"  %8.2lf %SB/s\" GPRINT:WriteBytes:LAST:\"  %8.2lf %SB/s     \" ";
   $cmd2 .= "LINE:WriteBytes#0173FF:\"WriteBytes\" COMMENT:\"\\n\" ";
   $cmd2 .= "COMMENT:\"          ----------------------------   $timestamp   -----------------------\\n\" ";
 
