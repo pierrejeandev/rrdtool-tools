@@ -21,17 +21,33 @@ scriptFolder=$( dirname "${BASH_SOURCE[0]}" )
 cd $scriptFolder
 
 echo "## $(date) #############################" >>  ./rrd.log 2>&1
+
+
+# OPTIONAL : save graphs to tmpsf to limit disk IO (useful on raspberrypi)
+#if [ ! -d '/run/user/1000/rrd' ]; then
+#  echo "Crating folder '/run/user/1000/rrd'"   >>  ./rrd.log 2>&1
+#  mkdir -p '/run/user/1000/rrd';
+#  # add read only access to lighttpd
+#  setfacl -m u:www-data:rx /run/user/1000
+#  # copy index html & css files
+#  cp -p www/* /var/www/rrd/
+#fi
+
+
+#hourmin=$(date '+%H:%M')
+#if [ "$hourmin" == "17:05" ]; then
+#  echo "Copy www files to /var/www/rrd/"
+#  cp -p www/* /var/www/rrd/
+#fi
+
+
 ./cpu.rrd.pl         >> ./rrd.log 2>&1
 ./mem.rrd.pl         >> ./rrd.log 2>&1
 ./diskSpace.rrd.pl   >> ./rrd.log 2>&1
 ./diskIO.rrd.pl      >> ./rrd.log 2>&1
 ./uptime.rrd.pl      >> ./rrd.log 2>&1
 ./if.rrd.pl          >> ./rrd.log 2>&1
-#./sensors.rrd.pl     >> ./rrd.log 2>&1
 
-#./ping.rrd.pl Hisi ssl.hisi.fr &
-#./ping.rrd.pl Piterpan www.piterpan.org &
 #./ping.rrd.pl Google www.google.fr &
-# /root/perl/rrd/ping.rrd.pl Google www.google.fr &
 
 
