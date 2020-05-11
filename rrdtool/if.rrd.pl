@@ -54,7 +54,8 @@ if ($kernelversion =~m/^2\.4\..*/)
   print "Unsuported kervel version. Supported version are 2.4 and 2.6\n";
   exit;
 }
-elsif ($kernelversion =~m/^2\.6\..*/ || $kernelversion =~m/^[34]\..*/)
+#elsif ($kernelversion =~m/^2\.6\..*/ || $kernelversion =~m/^[34]\..*/)
+else
 {
   my @devstat = `cat /proc/net/dev`;
   for(my $i=2; $i <= $#devstat; $i++)
@@ -71,11 +72,6 @@ elsif ($kernelversion =~m/^2\.6\..*/ || $kernelversion =~m/^[34]\..*/)
       print $i, ' ', $devstat[$i], "\n";
     }
   }
-}
-else
-{
-  print "Unsuported kervel version. Supported version are 2.4 and 2.6\n";
-  exit;
 }
 
 # traitement de chaque interface contenue dans $devs

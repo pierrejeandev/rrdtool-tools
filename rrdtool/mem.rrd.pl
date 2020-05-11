@@ -45,16 +45,12 @@ elsif ($kernelversion =~m/^2\.6\..*/ || $kernelversion =~m/^3\..*/)
   (undef, $memtotal, $memused, $memfree, $memshared, $membuffer, $memcached) = split(/\s+/, `free | grep Mem:`);
   (undef, $swptotal, $swpused, $swpfree) = split(/\s+/, `free | grep Swap:`);
 }
-elsif ($kernelversion =~m/^2\.6\..*/ || $kernelversion =~m/^4\..*/)
+#elsif ($kernelversion =~m/^2\.6\..*/ || $kernelversion =~m/^4\..*/)
+else
 {
   (undef, $memtotal, $memused, $memfree, $memshared, $memcached, undef) = split(/\s+/, `free | grep Mem:`);
   (undef, $swptotal, $swpused, $swpfree) = split(/\s+/, `free | grep Swap:`);
   $membuffer = 0
-}
-else
-{
-  print "Unsuported kervel version. Supported version are 2.4 and 2.6\n";
-  exit;
 }
 
 print "mem $memtotal, $memused, $memfree, $memshared, $membuffer, $memcached\n";
