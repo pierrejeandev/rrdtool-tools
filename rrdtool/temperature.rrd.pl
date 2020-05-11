@@ -54,36 +54,46 @@ my ($tpDiska) = ('U');
 my $cmd;
 foreach my $line (@sensors)
 {
-  if($line =~ m/Ambient:\s+([\+\d\.]+)[\s°]C/)
+  if($line =~ m/Ambient:\s+([\+\d\.]+).+C/)
   {
     $temp1 = $1;
   }
-  elsif($line =~ m/Package id 0:\s+([\+\d\.]+)[\s°]C/)
+  elsif($line =~ m/Package id 0:\s+([\+\d\.]+).+C/)
   {
     $tpCpu = $1;
   }
-  elsif($line =~ m/Core 0:\s+([\+\d\.]+)[\s°]C/)
+  elsif($line =~ m/Core 0:\s+([\+\d\.]+).+C/)
   {
     $tpCore0 = $1;
   }
-  elsif($line =~ m/Core 1:\s+([\+\d\.]+)[\s°]C/)
+  elsif($line =~ m/Core 1:\s+([\+\d\.]+).+C/)
   {
     $tpCore1 = $1;
   }
-  #elsif($line =~ m/Core 2:\s+([\+\d\.]+)[\s°]C/)
+  #elsif($line =~ m/Core 2:\s+([\+\d\.]+).+C/)
   #{
   #  $tpCore2 = $1;
   #}
-  #elsif($line =~ m/Core 3:\s+([\+\d\.]+)[\s°]C/)
+  #elsif($line =~ m/Core 3:\s+([\+\d\.]+).+C/)
   #{
   #  $tpCore3 = $1;
   #}
   #else
   #{
-  #  print $line
+  #  print $line;
   #}
 }
 
+# Disk temprature from smartmontools data saved to temps file in /dev/shm/disk-sda-smart.txt
+# Sample content: 
+# 194 Temperature_Celsius     0x0022   116   113   000    Old_age   Always       -       34
+# 190 Airflow_Temperature_Cel 0x0022   061   048   045    Old_age   Always       -       39 (Min/Max 35/39)
+my $diskData = `cat /dev/shm/disk-sda-smart.txt`;
+if($diskData =~ m/^\s*\d+\s+\S+\s+\S+\s+\S+\s+\S+\s+\S+\s+\S+\s+\S+\s+\S+\s+(\d+)\s/)
+{
+  #print "Disk a: $1 \n'$diskData'\n";
+  $tpDiska = $1;
+}
 
 #print "temperature $temp1, $tpCpu, $tpCore0, $tpCore1, $tpCore2, $tpCore3\n";
 #$cmd = "rrdtool update $datadir/$rrdFileTemperature $scripttime:$temp1:$tpCpu:$tpCore0:$tpCore1:$tpCore2:$tpCore3:$tpDiska:$tpDiskb:$tpDiskc \n";
@@ -120,33 +130,33 @@ $cmd2 .= "DEF:tpDiskaMax=$datadir/$rrdFileTemperature:tpDiska:MAX ";
 #$cmd2 .= "DEF:tpDiskbMin=$datadir/$rrdFileTemperature:tpDiskb:MIN  DEF:tpDiskcMin=$datadir/$rrdFileTemperature:tpDiskc:MIN ";
 #$cmd2 .= "DEF:tpDiskbMax=$datadir/$rrdFileTemperature:tpDiskb:MAX  DEF:tpDiskcMax=$datadir/$rrdFileTemperature:tpDiskc:MAX ";
 
-$cmd2 .= "COMMENT:\"              Min             Max             Avg             Last\\n\" ";
-$cmd2 .= "GPRINT:temp1:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:temp1Min:MIN:\"    %7.2lf %SÂ°C\" ";
-$cmd2 .= "GPRINT:temp1Max:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:temp1:LAST:\"    %7.2lf %SÂ°C     \" ";
+$cmd2 .= "COMMENT:\"              Min              Max              Avg              Last\\n\" ";
+$cmd2 .= "GPRINT:temp1:AVERAGE:\"          %7.2lf %S°C\" GPRINT:temp1Min:MIN:\"    %7.2lf %S°C\" ";
+$cmd2 .= "GPRINT:temp1Max:MAX:\"    %7.2lf %S°C\"   GPRINT:temp1:LAST:\"    %7.2lf %S°C     \" ";
 $cmd2 .= "LINE2:temp1#C00000:\"temp 1\" COMMENT:\"\\n\" ";
-$cmd2 .= "GPRINT:tpCore0:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:tpCore0Min:MIN:\"    %7.2lf %SÂ°C\" ";
-$cmd2 .= "GPRINT:tpCore0Max:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:tpCore0:LAST:\"    %7.2lf %SÂ°C     \" ";
+$cmd2 .= "GPRINT:tpCore0:AVERAGE:\"          %7.2lf %S°C\" GPRINT:tpCore0Min:MIN:\"    %7.2lf %S°C\" ";
+$cmd2 .= "GPRINT:tpCore0Max:MAX:\"    %7.2lf %S°C\"   GPRINT:tpCore0:LAST:\"    %7.2lf %S°C     \" ";
 $cmd2 .= "LINE2:tpCore0#0173FF:\"tp Core 0\" COMMENT:\"\\n\" ";
-$cmd2 .= "GPRINT:tpCore1:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:tpCore1Min:MIN:\"    %7.2lf %SÂ°C\" ";
-$cmd2 .= "GPRINT:tpCore1Max:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:tpCore1:LAST:\"    %7.2lf %SÂ°C     \" ";
+$cmd2 .= "GPRINT:tpCore1:AVERAGE:\"          %7.2lf %S°C\" GPRINT:tpCore1Min:MIN:\"    %7.2lf %S°C\" ";
+$cmd2 .= "GPRINT:tpCore1Max:MAX:\"    %7.2lf %S°C\"   GPRINT:tpCore1:LAST:\"    %7.2lf %S°C     \" ";
 $cmd2 .= "LINE2:tpCore1#FF8737:\"tp Core 1\" COMMENT:\"\\n\" ";
-#$cmd2 .= "GPRINT:tpCore2:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:tpCore2Min:MIN:\"    %7.2lf %SÂ°C\" ";
-#$cmd2 .= "GPRINT:tpCore2Max:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:tpCore2:LAST:\"    %7.2lf %SÂ°C     \" ";
+#$cmd2 .= "GPRINT:tpCore2:AVERAGE:\"          %7.2lf %S°C\" GPRINT:tpCore2Min:MIN:\"    %7.2lf %S°C\" ";
+#$cmd2 .= "GPRINT:tpCore2Max:MAX:\"    %7.2lf %S°C\"   GPRINT:tpCore2:LAST:\"    %7.2lf %S°C     \" ";
 #$cmd2 .= "LINE2:tpCore2#0173FF:\"tp Core 2\" COMMENT:\"\\n\" ";
-#$cmd2 .= "GPRINT:tpCore3:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:tpCore3Min:MIN:\"    %7.2lf %SÂ°C\" ";
-#$cmd2 .= "GPRINT:tpCore3Max:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:tpCore3:LAST:\"    %7.2lf %SÂ°C     \" ";
+#$cmd2 .= "GPRINT:tpCore3:AVERAGE:\"          %7.2lf %S°C\" GPRINT:tpCore3Min:MIN:\"    %7.2lf %S°C\" ";
+#$cmd2 .= "GPRINT:tpCore3Max:MAX:\"    %7.2lf %S°C\"   GPRINT:tpCore3:LAST:\"    %7.2lf %S°C     \" ";
 #$cmd2 .= "LINE2:tpCore3#FF8737:\"tp Core 3\" COMMENT:\"\\n\" ";
-$cmd2 .= "GPRINT:tpCpu:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:tpCpuMin:MIN:\"    %7.2lf %SÂ°C\" ";
-$cmd2 .= "GPRINT:tpCpuMax:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:tpCpu:LAST:\"    %7.2lf %SÂ°C     \" ";
+$cmd2 .= "GPRINT:tpCpu:AVERAGE:\"          %7.2lf %S°C\" GPRINT:tpCpuMin:MIN:\"    %7.2lf %S°C\" ";
+$cmd2 .= "GPRINT:tpCpuMax:MAX:\"    %7.2lf %S°C\"   GPRINT:tpCpu:LAST:\"    %7.2lf %S°C     \" ";
 $cmd2 .= "LINE2:tpCpu#009000:\"tp CPU\" COMMENT:\"\\n\" ";
-$cmd2 .= "GPRINT:tpDiska:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:tpDiskaMin:MIN:\"    %7.2lf %SÂ°C\" ";
-$cmd2 .= "GPRINT:tpDiskaMax:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:tpDiska:LAST:\"    %7.2lf %SÂ°C     \" ";
+$cmd2 .= "GPRINT:tpDiska:AVERAGE:\"          %7.2lf %S°C\" GPRINT:tpDiskaMin:MIN:\"    %7.2lf %S°C\" ";
+$cmd2 .= "GPRINT:tpDiskaMax:MAX:\"    %7.2lf %S°C\"   GPRINT:tpDiska:LAST:\"    %7.2lf %S°C     \" ";
 $cmd2 .= "LINE2:tpDiska#80FF80:\"tp sda\" COMMENT:\"\\n\" ";
-#$cmd2 .= "GPRINT:tpDiskb:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:tpDiskbMin:MIN:\"    %7.2lf %SÂ°C\" ";
-#$cmd2 .= "GPRINT:tpDiskbMax:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:tpDiskb:LAST:\"    %7.2lf %SÂ°C     \" ";
+#$cmd2 .= "GPRINT:tpDiskb:AVERAGE:\"          %7.2lf %S°C\" GPRINT:tpDiskbMin:MIN:\"    %7.2lf %S°C\" ";
+#$cmd2 .= "GPRINT:tpDiskbMax:MAX:\"    %7.2lf %S°C\"   GPRINT:tpDiskb:LAST:\"    %7.2lf %S°C     \" ";
 #$cmd2 .= "LINE2:tpDiskb#FFC549:\"tp sdb\" COMMENT:\"\\n\" ";
-#$cmd2 .= "GPRINT:tpDiskc:AVERAGE:\"          %7.2lf %SÂ°C\" GPRINT:tpDiskcMin:MIN:\"    %7.2lf %SÂ°C\" ";
-#$cmd2 .= "GPRINT:tpDiskcMax:MAX:\"    %7.2lf %SÂ°C\"   GPRINT:tpDiskc:LAST:\"    %7.2lf %SÂ°C     \" ";
+#$cmd2 .= "GPRINT:tpDiskc:AVERAGE:\"          %7.2lf %S°C\" GPRINT:tpDiskcMin:MIN:\"    %7.2lf %S°C\" ";
+#$cmd2 .= "GPRINT:tpDiskcMax:MAX:\"    %7.2lf %S°C\"   GPRINT:tpDiskc:LAST:\"    %7.2lf %S°C     \" ";
 #$cmd2 .= "LINE2:tpDiskc#FFC549:\"tp sdb\" COMMENT:\"\\n\" ";
 $cmd2 .= "COMMENT:\"          ----------------------------   $timestamp   -----------------------\\n\" ";
 
