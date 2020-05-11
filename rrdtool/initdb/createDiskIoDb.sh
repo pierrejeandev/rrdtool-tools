@@ -19,7 +19,7 @@
 
 time=$(date +%s)
 
-rrdtool create dataDiskIo.rrd --step 60 --start $time \
+rrdtool create dataDiskIO.rrd --step 60 --start $time \
   DS:Reads1:COUNTER:600:0:3000   DS:Writes1:COUNTER:600:0:3000  \
   DS:ReadBytes1:COUNTER:600:0:U  DS:WriteBytes1:COUNTER:600:0:U \
   DS:Reads2:COUNTER:600:0:3000   DS:Writes2:COUNTER:600:0:3000  \
